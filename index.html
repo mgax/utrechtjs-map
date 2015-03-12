@@ -63,6 +63,8 @@ d3.json('data.json', function(data) {
   label.append('text')
       .text(function(f) { return f.properties.tags.name });
 
+  label.on('click', function(f) { console.log(f.properties) });
+
 });
 
 </script>
