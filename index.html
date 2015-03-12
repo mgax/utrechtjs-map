@@ -48,13 +48,15 @@ d3.json('data.json', function(data) {
       .attr('class', function(f) { return 'bus8 ' + f.properties.type })
       .attr('d', path);
 
+  var labelTranslation = function(f) {
+    return 'translate(' + projection(f.geometry.coordinates) + ')';
+  };
+
   var label = svg.selectAll('.label')
       .data(data.pubs.features)
     .enter().append('g')
       .attr('class', 'label')
-      .attr('transform', function(f) {
-        return 'translate(' + projection(f.geometry.coordinates) + ')';
-      });
+      .attr('transform', labelTranslation);
 
   label.append('text')
       .attr('class', 'halo')
@@ -64,6 +66,19 @@ d3.json('data.json', function(data) {
       .text(function(f) { return f.properties.tags.name });
 
   label.on('click', function(f) { console.log(f.properties) });
+
+  var zoom = d3.behavior.zoom()
+      .translate([width/2, height/2]);
+
+  svg.call(zoom);
+
+  zoom.on('zoom', function() {
+      projection.translate(d3.event.translate).scale(500000 * d3.event.scale);
+      svg.selectAll('.road').attr('d', path);
+      svg.selectAll('.bus8').attr('d', path);
+      svg.selectAll('.pub').attr('d', path);
+      svg.selectAll('.label').attr('transform', labelTranslation);
+  });
 
 });
 
