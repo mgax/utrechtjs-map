@@ -41,7 +41,7 @@ d3.json('data.json', function(data) {
       .attr('d', path);
 
   svg.selectAll('.bus8')
-      .data(data.bus8.features)
+      .data(data.bus8.features.filter(function(f) { return f.properties.type == 'way' || f.properties.tags.highway == 'bus_stop' }))
     .enter().append('path')
       .attr('class', 'bus8')
       .attr('d', path);
