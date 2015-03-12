@@ -2,6 +2,7 @@
   "name": "talk-haihui",
   "private": true,
   "dependencies": {
-    "request": "~2.53.0"
+    "request": "~2.53.0",
+    "osmtogeojson": "~2.2.5"
   }
 }
