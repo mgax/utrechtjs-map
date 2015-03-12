@@ -2,6 +2,8 @@
 <meta charset="utf-8">
 <style>
 .road { fill: none; stroke: grey; }
+.road.primary, .road.secondary { stroke: steelblue; }
+.road.residential { stroke-width: .5; }
 </style>
 
 <body>
@@ -28,7 +30,7 @@ d3.json('data.json', function(data) {
   svg.selectAll('.road')
       .data(data.roads.features.filter(function(f) { return f.properties.type == 'way' }))
     .enter().append('path')
-      .attr('class', 'road')
+      .attr('class', function(f) { return 'road ' + f.properties.tags.highway })
       .attr('d', path);
 
   svg.selectAll('.pub')
