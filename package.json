@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "request": "~2.53.0",
-    "osmtogeojson": "~2.2.5"
+    "osmtogeojson": "~2.2.5",
+    "express": "~4.12.2"
   }
 }
