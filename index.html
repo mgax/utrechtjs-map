@@ -4,6 +4,7 @@
 .road { fill: none; stroke: grey; }
 .road.primary, .road.secondary { stroke: steelblue; }
 .road.residential { stroke-width: .5; }
+.bus8 { fill: none; stroke: red; }
 </style>
 
 <body>
@@ -37,6 +38,12 @@ d3.json('data.json', function(data) {
       .data(data.pubs.features)
     .enter().append('path')
       .attr('class', 'pub')
+      .attr('d', path);
+
+  svg.selectAll('.bus8')
+      .data(data.bus8.features)
+    .enter().append('path')
+      .attr('class', 'bus8')
       .attr('d', path);
 
 });

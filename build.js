@@ -4,6 +4,7 @@ var osmtogeojson = require('osmtogeojson');
 
 var pub_query = '[out:json][timeout:25];node[amenity~"pub|cafe"](52.0718,5.0938,52.0999,5.1570);out;';
 var road_query = '[out:json][timeout:25];way[highway~""](52.0718,5.0938,52.0999,5.1570);(._;>;);out;';
+var bus8_query = '[out:json][timeout:25];relation[route=bus][ref=8](52.0718,5.0938,52.0999,5.1570);(._;>;);out;';
 
 
 function overpass(q, cb) {
@@ -16,10 +17,13 @@ function overpass(q, cb) {
 
 overpass(pub_query, function(pubs) {
   overpass(road_query, function(roads) {
-    var data = {
-      pubs: pubs,
-      roads: roads
-    };
-    fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
+    overpass(bus8_query, function(bus8) {
+      var data = {
+        pubs: pubs,
+        roads: roads,
+        bus8: bus8
+      };
+      fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
+    });
   });
 });
