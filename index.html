@@ -47,6 +47,16 @@ d3.json('data.json', function(data) {
       .attr('class', function(f) { return 'bus8 ' + f.properties.type })
       .attr('d', path);
 
+  svg.selectAll('.label')
+      .data(data.pubs.features)
+    .enter().append('g')
+      .attr('class', 'label')
+      .attr('transform', function(f) {
+        return 'translate(' + projection(f.geometry.coordinates) + ')';
+      })
+    .append('text')
+      .text(function(f) { return f.properties.tags.name });
+
 });
 
 </script>
