@@ -6,6 +6,7 @@
 .road.residential { stroke-width: .5; }
 .bus8.way { fill: none; stroke: red; }
 .bus8.node { fill: orange; }
+.halo { stroke: white; stroke-width: 6; opacity: .8; }
 </style>
 
 <body>
@@ -47,14 +48,19 @@ d3.json('data.json', function(data) {
       .attr('class', function(f) { return 'bus8 ' + f.properties.type })
       .attr('d', path);
 
-  svg.selectAll('.label')
+  var label = svg.selectAll('.label')
       .data(data.pubs.features)
     .enter().append('g')
       .attr('class', 'label')
       .attr('transform', function(f) {
         return 'translate(' + projection(f.geometry.coordinates) + ')';
-      })
-    .append('text')
+      });
+
+  label.append('text')
+      .attr('class', 'halo')
+      .text(function(f) { return f.properties.tags.name });
+
+  label.append('text')
       .text(function(f) { return f.properties.tags.name });
 
 });
