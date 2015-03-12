@@ -26,7 +26,7 @@ var path = d3.geo.path()
 
 d3.json('data.json', function(data) {
   svg.selectAll('.road')
-      .data(data.roads.features)
+      .data(data.roads.features.filter(function(f) { return f.properties.type == 'way' }))
     .enter().append('path')
       .attr('class', 'road')
       .attr('d', path);
